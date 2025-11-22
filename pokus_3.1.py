@@ -30,11 +30,11 @@ def generate_number() -> list[int]:
     return digits
 
 def is_valid_input(user_input: str) -> tuple[bool, list[str]]:
-    """Check if user input is valid and return (is_valid, message).
+    """Validate the user's input and return a result and error messages.
     Args:
-        user_input (str): The input entered by the player.
+        user_input (str): The value provided by the player.
     Returns:
-        tuple[bool, list[str]: Validation result and error message.
+        tuple[bool, list[str]]: Validation status and list of error messages
     """
     errors = []
 
@@ -44,9 +44,9 @@ def is_valid_input(user_input: str) -> tuple[bool, list[str]]:
         errors.append(f"Input must be {DIGIT_COUNT} digits long.")
     if user_input and user_input[0] == "0":
         errors.append("Number cannot start with zero.")
-    if len(user_input) >= 2 and len(set(user_input)) != len(user_input):
+    if (len(set(user_input)) != len(user_input)):
         errors.append("Digits must be unique.")
-    return (len(errors) ==0), errors
+    return (len(errors) == 0), errors
 
 def pluralize(count: int, singular: str, suffix: str = "s", show_count: bool = True) -> str:
     """Returns the word in singular or plural form based on count.
@@ -62,8 +62,7 @@ def pluralize(count: int, singular: str, suffix: str = "s", show_count: bool = T
 
 def evaluate_guess(secret: list[int], guess: list[int]) -> tuple[int, int]:
     """Compares the player's guess with the secret number and returns the number of bulls and cows.
-    Bulls = correct digit in correct position.
-    Cows = correct digit in wrong position.
+    Bulls are correct digit in correct position, Cows are correct digit in wrong position.
     Args:
         secret (list[int]): The secret number as a list of digits.
         guess (list[int]): The player's guess as a list of digits.
@@ -75,7 +74,7 @@ def evaluate_guess(secret: list[int], guess: list[int]) -> tuple[int, int]:
     unmatched_secret = []
     unmatched_guess = []
 
-    for position_index, (secret_digit, guess_digit) in enumerate(zip(secret, guess)):
+    for _pos, (secret_digit, guess_digit) in enumerate(zip(secret, guess)):
         if secret_digit == guess_digit:
             bulls += 1
         else:
